@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "631039267485",
+    "project_id": "moo-nitoring-468b5",
+    "storage_bucket": "moo-nitoring-468b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631039267485:android:da6f9398db4025183aba74",
+        "android_client_info": {
+          "package_name": "com.riset.moonitoring"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5yeITsrdUcHwYYmgjRLkHs-g6r3PA7Mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
