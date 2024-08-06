@@ -43,57 +43,54 @@ class _NotificationsViewState extends State<NotificationsView> {
         onTap: (int i) => Utils.changePage(index: i),
       ),
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.all(10),
-          child: SingleChildScrollView(
-            child: Center(
-              child: FutureBuilder<List<ListDataNotif>?>(
-                future: _controller.getNotifications(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return SizedBox(
-                      height: Get.height * 1,
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          color: AppColor.green,
-                        ),
+        child: SingleChildScrollView(
+          child: Center(
+            child: FutureBuilder<List<ListDataNotif>?>(
+              future: _controller.getNotifications(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return SizedBox(
+                    height: Get.height * 1,
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColor.green,
                       ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return SizedBox(
-                      height: Get.height * 1,
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return SizedBox(
+                    height: Get.height * 1,
+                    child: Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    ),
+                  );
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return SizedBox(
+                    height: Get.height * 1,
+                    child: const Center(
                       child: Center(
-                        child: Text('Error: ${snapshot.error}'),
+                        child: Text('Tidak Ada Notifikasi'),
                       ),
-                    );
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return SizedBox(
-                      height: Get.height * 1,
-                      child: const Center(
-                        child: Center(
-                          child: Text('Tidak Ada Notifikasi'),
-                        ),
-                      ),
-                    );
-                  } else {
-                    return SizedBox(
-                      height: Get.height * 0.5,
-                      child: ListView(
-                        children: snapshot.data!.map((el) {
-                          debugPrint(el.title!);
+                    ),
+                  );
+                } else {
+                  return SizedBox(
+                    height: Get.height * 1,
+                    child: ListView(
+                      children: snapshot.data!.map((el) {
+                        debugPrint(el.title!);
 
-                          return ListNotif(
-                            title: Text(el.title!),
-                            description: Text(el.description!),
-                            date: Text(el.date!),
-                            time: Text(el.time!),
-                          );
-                        }).toList(),
-                      ),
-                    );
-                  }
-                },
-              ),
+                        return ListNotif(
+                          title: Text(el.title!),
+                          description: Text(el.description!),
+                          date: Text(el.date!),
+                          time: Text(el.time!),
+                        );
+                      }).toList(),
+                    ),
+                  );
+                }
+              },
             ),
           ),
         ),
