@@ -4,7 +4,7 @@ class UsersModels {
   int? code;
   String? status;
   String? message;
-  Data? data;
+  DataUsers? data;
 
   UsersModels({this.code, this.status, this.message, this.data});
 
@@ -12,7 +12,7 @@ class UsersModels {
     code = json['code'];
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? DataUsers.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -27,7 +27,7 @@ class UsersModels {
   }
 }
 
-class Data {
+class DataUsers {
   int? id;
   String? name;
   String? role;
@@ -36,7 +36,7 @@ class Data {
   String? token;
   Users? users;
 
-  Data({
+  DataUsers({
     this.id,
     this.name,
     this.role,
@@ -46,7 +46,7 @@ class Data {
     this.users,
   });
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataUsers.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     role = json['role'];

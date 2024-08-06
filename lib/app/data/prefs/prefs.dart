@@ -9,8 +9,9 @@ class Prefs {
   static String key = 'key';
   static String id = 'id';
   static String name = 'name';
-  static String username = 'username';
+  static String role = 'role';
   static String noHp = 'noHp';
+  static String address = 'address';
   static String token = 'token';
   static String firstTime = 'firstTime';
   static String login = 'login';

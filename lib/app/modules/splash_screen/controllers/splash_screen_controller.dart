@@ -1,6 +1,5 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:get/get.dart';
+
 import '../../../routes/app_pages.dart';
 import '../../../data/prefs/prefs.dart';
 
@@ -8,9 +7,6 @@ class SplashScreenController extends GetxController {
   void movePage() async {
     final isFirstTime = Prefs.getFirstTime();
     final isLogin = Prefs.getLogin();
-  
-    debugPrint('isFirstTime = $isFirstTime');
-    debugPrint('isLogin = $isLogin');
   
     if (isFirstTime) {
       await Future.delayed(

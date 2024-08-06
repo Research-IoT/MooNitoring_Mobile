@@ -46,8 +46,10 @@ class LoginController extends GetxController {
         debugPrint('login sucess!');
 
         Prefs.setInt(Prefs.id, r.data!.users!.id!);
-        Prefs.setString(Prefs.noHp, r.data!.users!.noHp!);
         Prefs.setString(Prefs.name, r.data!.users!.name!);
+        Prefs.setString(Prefs.role, r.data!.users!.role!);
+        Prefs.setString(Prefs.noHp, r.data!.users!.noHp!);
+        Prefs.setString(Prefs.address, r.data!.users!.alamat!);
         Prefs.setString(Prefs.token, r.data!.token!);
 
         Prefs.setLogin(Prefs.login, true);

@@ -7,53 +7,28 @@ import '../../../data/api/api.dart';
 import '../../../data/api/failed.dart';
 import '../../../data/models/models.dart';
 
-class DetailService {
+class AnalyticsServices {
   final Dio dio;
 
-  DetailService(this.dio);
+  AnalyticsServices(this.dio);
 
-  Future<Either<Failed, DashboardModels>> dashboard(
-    final idDevices,
+  Future<Either<Failed, DataSensorsModels>> getDay(
+    String day,
+    String month,
+    String year,
   ) async {
     try {
       final token = await Utils.ensureToken();
 
       final response = await dio.getUri(
-        Uri.https(Api.baseURL, Api.versionAPI + Api.dashboard),
+        Uri.https(
+            'moonitoring.riset-d3rpla.com', Api.versionAPI + Api.dataByDay),
         options: Options(
           headers: {
             'Authorization': token,
-            'device_id': idDevices,
-          },
-        ),
-      );
-
-      debugPrint(response.data.toString());
-
-      if (response.statusCode != 200) {
-        throw Exception(response.statusCode);
-      }
-
-      debugPrint(response.data.toString());
-      return Right(DashboardModels.fromJson(response.data));
-    } catch (e) {
-      debugPrint(e.toString());
-      return Left(Failed(e.toString()));
-    }
-  }
-
-  Future<Either<Failed, ControllingModels>> infoControl(
-    final idDevices,
-  ) async {
-    try {
-      final token = await Utils.ensureToken();
-
-      final response = await dio.getUri(
-        Uri.https(Api.baseURL, Api.versionAPI + Api.infoControl),
-        options: Options(
-          headers: {
-            'Authorization': token,
-            'device_id': idDevices,
+            'day': day,
+            'month': month,
+            'year': year,
           },
         ),
       );
@@ -63,47 +38,73 @@ class DetailService {
       }
 
       debugPrint(response.data.toString());
-      return Right(ControllingModels.fromJson(response.data));
+      return Right(DataSensorsModels.fromJson(response.data));
     } catch (e) {
       debugPrint(e.toString());
       return Left(Failed(e.toString()));
     }
   }
 
-  Future<Either<Failed, ControllingModels>> changeControl(
-    final idDevices,
-    final automatic,
-    final blower,
-    final heater,
+    Future<Either<Failed, DataSensorsModels>> getWeek(
+    String startDate,
+    String endDate,
+    String month,
+    String year,
   ) async {
     try {
       final token = await Utils.ensureToken();
 
-      FormData formData = FormData.fromMap({
-        'id': idDevices,
-        'automatic': automatic,
-        'blower': blower,
-        'heater': heater,
-      });
-
-      debugPrint(formData.fields.toString());
-
-      final response = await dio.postUri(
-        Uri.https(Api.baseURL, Api.versionAPI + Api.changeControl),
+      final response = await dio.getUri(
+        Uri.https(
+            'moonitoring.riset-d3rpla.com', Api.versionAPI + Api.dataByMonth),
         options: Options(
           headers: {
             'Authorization': token,
+            'dayStart': startDate,
+            'dayEnd': endDate,
+            'month': month,
+            'year': year,
           },
         ),
-        data: formData,
       );
 
-      if (response.statusCode != 201) {
+      if (response.statusCode != 200) {
         throw Exception(response.statusCode);
       }
 
       debugPrint(response.data.toString());
-      return Right(ControllingModels.fromJson(response.data));
+      return Right(DataSensorsModels.fromJson(response.data));
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(Failed(e.toString()));
+    }
+  }
+
+    Future<Either<Failed, DataSensorsModels>> getMonth(
+    String month,
+    String year,
+  ) async {
+    try {
+      final token = await Utils.ensureToken();
+
+      final response = await dio.getUri(
+        Uri.https(
+            'moonitoring.riset-d3rpla.com', Api.versionAPI + Api.dataByMonth),
+        options: Options(
+          headers: {
+            'Authorization': token,
+            'month': month,
+            'year': year,
+          },
+        ),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception(response.statusCode);
+      }
+
+      debugPrint(response.data.toString());
+      return Right(DataSensorsModels.fromJson(response.data));
     } catch (e) {
       debugPrint(e.toString());
       return Left(Failed(e.toString()));

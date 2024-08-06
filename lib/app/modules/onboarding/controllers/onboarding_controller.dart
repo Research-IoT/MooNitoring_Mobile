@@ -8,7 +8,7 @@ class OnBoardingController extends GetxController {
     await Prefs.setIsFirstTime(Prefs.firstTime, false);
 
     await FirebaseMessaging.instance
-        .subscribeToTopic('notifications-moonitoring');
+        .subscribeToTopic('notifications');
 
     Get.offAllNamed(Routes.LOGIN);
   }

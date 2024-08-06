@@ -146,3 +146,176 @@ class _ToggleOnOffState extends State<ToggleOnOff> {
     );
   }
 }
+
+class ListDevices extends StatelessWidget {
+  final double height;
+  final double width;
+  final String deviceName;
+  final String deviceTemperature;
+  final String deviceHumidity;
+  final String deviceAmmonia;
+  final VoidCallback onTap;
+
+  const ListDevices({
+    super.key,
+    required this.height,
+    required this.width,
+    required this.deviceName,
+    required this.deviceTemperature,
+    required this.deviceHumidity,
+    required this.deviceAmmonia,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 15,
+        bottom: 15,
+      ),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: height,
+          width: width,
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: AppColor.grey,
+            borderRadius: BorderRadius.circular(10.0),
+            boxShadow: [
+              BoxShadow(
+                color: AppColor.black.withOpacity(0.1),
+                spreadRadius: 0.5,
+                blurRadius: 10,
+                offset: const Offset(1, 10),
+              ),
+            ],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(width: 10),
+              SizedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      text: deviceName,
+                      style: body1,
+                    ),
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(
+                                text: '$deviceTemperature °C',
+                                style: body2.copyWith(fontSize: 12),
+                              ),
+                              AppText(
+                                text: 'Suhu',
+                                style: paragraph3.copyWith(fontSize: 10),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 50),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(
+                                text: '$deviceHumidity %',
+                                style: body2.copyWith(fontSize: 12),
+                              ),
+                              AppText(
+                                text: 'Kelembaban',
+                                style: paragraph3.copyWith(fontSize: 10),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 50),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(
+                                text: '$deviceAmmonia ppm',
+                                style: body2.copyWith(fontSize: 12),
+                              ),
+                              AppText(
+                                text: 'Anomia',
+                                style: paragraph3.copyWith(fontSize: 10),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ListNotif extends StatelessWidget {
+  final Text title;
+  final Text description;
+  final Text date;
+  final Text time;
+
+  const ListNotif({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.date,
+    required this.time,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(5),
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      child: Container(
+        height: 100,
+        width: Get.width * 1,
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: AppColor.grey,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.black.withOpacity(0.1),
+              spreadRadius: 0.5,
+              blurRadius: 10,
+              offset: const Offset(1, 10),
+            ),
+          ],
+        ),
+        child: ListTile(
+          title: title,
+          subtitle: description,
+          trailing: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              date,
+              time,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

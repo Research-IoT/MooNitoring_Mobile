@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:location/location.dart';
+import 'package:moonitoring/app/utils/utils.dart';
 
 import 'firebase_options.dart';
 import 'app/themes/themes.dart';
@@ -19,6 +21,7 @@ void main() async {
   );
 
   final messaging = FirebaseMessaging.instance;
+
   await messaging.requestPermission(
     alert: true,
     announcement: false,
@@ -28,6 +31,15 @@ void main() async {
     provisional: false,
     sound: true,
   );
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  Location location = Location();
+  await location.requestPermission();
 
   const fatalError = true;
   FlutterError.onError = (errorDetails) {
@@ -49,7 +61,26 @@ void main() async {
     return true;
   };
 
+  FirebaseMessaging.onMessage.listen((message) {
+    RemoteNotification? element = message.notification;
+
+    Get.snackbar(
+      element!.title!,
+      element.body!,
+    );
+  });
+
   await Prefs.init();
+
+  if (!Prefs.getFirstTime() && Prefs.getLogin()) {
+    final isLoggedIn = await Utils.checkLoginStatus();
+
+    Prefs.setLogin(Prefs.login, isLoggedIn);
+
+    if (!isLoggedIn) {
+      Prefs.setString(Prefs.token, 'token');
+    }
+  }
 
   runApp(const MyApp());
 }

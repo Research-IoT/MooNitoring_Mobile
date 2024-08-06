@@ -8,9 +8,14 @@ import '../../../utils/constant.dart';
 
 import '../controllers/onboarding_controller.dart';
 
-class OnBoardingView extends StatelessWidget {
-  OnBoardingView({super.key});
+class OnBoardingView extends StatefulWidget {
+  const OnBoardingView({super.key});
 
+  @override
+  State<OnBoardingView> createState() => _OnBoardingViewState();
+}
+
+class _OnBoardingViewState extends State<OnBoardingView> {
   final _controller = Get.put(OnBoardingController());
 
   @override

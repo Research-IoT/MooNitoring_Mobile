@@ -8,9 +8,14 @@ import '../../../utils/constant.dart';
 
 import '../controllers/login_controller.dart';
 
-class LoginView extends StatelessWidget {
-  LoginView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   final _controller = Get.put(LoginController());
 
   final _noHp = TextEditingController();

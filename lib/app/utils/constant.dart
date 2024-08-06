@@ -4,9 +4,9 @@ const people = 'assets/avatar/people.png';
 const farm = 'assets/farm.png';
 
 // On Boarding
-const first = 'assets/vector/first.jpg';
-const second = 'assets/vector/second.jpg';
-const third = 'assets/vector/third.jpg';
+const first = 'assets/vector/first.png';
+const second = 'assets/vector/second.png';
+const third = 'assets/vector/third.png';
 
 // Icon
 const icAutomatic = 'assets/icon/ic_automatic.png';
